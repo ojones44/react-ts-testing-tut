@@ -1,19 +1,25 @@
 // component imports
 import { ListItem } from '.';
 
-const List = ({ items }: ListTypes) => {
+// Type imports
+import { TUsersResponse } from '../types/types';
+
+const List = ({ data }: ListProps) => {
 	return (
-		<ul>
-			{items.map((item, i) => {
-				return <ListItem key={i} item={item} />;
-			})}
-		</ul>
+		<>
+			{data.length > 0 ? (
+				data.slice(0, 5).map((user) => {
+					return <ListItem key={user.id} user={user} />;
+				})
+			) : (
+				<p>No data to show</p>
+			)}
+		</>
 	);
 };
 
-interface ListTypes {
-	items: string[];
-	// render: (item: T) => ReactNode;
+interface ListProps {
+	data: TUsersResponse[];
 }
 
 export default List;
